@@ -143,7 +143,14 @@ public final class In {
             URL url = getClass().getResource(s);
 
             // or URL from web
-            if (url == null) { url = new URL(s); }
+            if (url == null) {
+                try {
+                    url = new java.net.URI(s).toURL();
+                } catch (java.net.URISyntaxException | java.net.MalformedURLException e) {
+                    System.err.println("Invalid URL: " + s);
+                    e.printStackTrace();
+                }
+            }
 
             URLConnection site = url.openConnection();
 
@@ -375,6 +382,7 @@ public final class In {
      * @deprecated Clearer to use 
      * <tt>new In(filename)</tt>.{@link #readAllInts()}
      */
+    @Deprecated
     public static int[] readInts(String filename) {
         return new In(filename).readAllInts();
     }
@@ -384,6 +392,7 @@ public final class In {
      * @deprecated Clearer to use 
      * <tt>new In(filename)</tt>.{@link #readAllDoubles()}
      */
+    @Deprecated
     public static double[] readDoubles(String filename) {
         return new In(filename).readAllDoubles();
     }
@@ -393,6 +402,7 @@ public final class In {
      * @deprecated Clearer to use 
      * <tt>new In(filename)</tt>.{@link #readAllStrings()}
      */
+    @Deprecated
     public static String[] readStrings(String filename) {
         return new In(filename).readAllStrings();
     }
@@ -401,6 +411,7 @@ public final class In {
      * Reads all ints from stdin 
      * @deprecated Clearer to use {@link StdIn#readAllInts()}
      */
+    @Deprecated
     public static int[] readInts() {
         return new In().readAllInts();
     }
@@ -409,6 +420,7 @@ public final class In {
      * Reads all doubles from stdin
      * @deprecated Clearer to use {@link StdIn#readAllDoubles()}
      */
+    @Deprecated
     public static double[] readDoubles() {
         return new In().readAllDoubles();
     }
@@ -417,6 +429,7 @@ public final class In {
      * Reads all strings from stdin
      * @deprecated Clearer to use {@link StdIn#readAllStrings()}
      */
+    @Deprecated
     public static String[] readStrings() {
         return new In().readAllStrings();
     }
